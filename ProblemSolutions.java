@@ -1,6 +1,6 @@
 /******************************************************************
  *
- *   YOUR NAME / SECTION NUMBER
+ *   Jacob Marison / 272 002
  *
  *   This java file contains the problem solutions for the methods selectionSort,
  *   mergeSortDivisibleByKFirst, asteroidsDestroyed, and numRescueCanoes methods.
@@ -42,7 +42,23 @@ public class ProblemSolutions {
             // "SELECTION SORT" ALGORITHM.
             // DO NOT FORGET TO ADD YOUR NAME / SECTION ABOVE
 
+            int redHotChilliPeppers = i;
+            for (int j = i + 1; j < n; j++) {
+                if (ascending) {
+                    if (values[j] < values[redHotChilliPeppers]) {
+                        redHotChilliPeppers = j;
+                    }
+                } else {
+                    if (values[j] > values[redHotChilliPeppers]) {
+                        redHotChilliPeppers = j;
+                    }
+                }
+            }
+            int temp = values[i];
+            values[i] = values[redHotChilliPeppers];
+            values[redHotChilliPeppers] = temp;
         }
+
 
     } // End class selectionSort
 
@@ -155,8 +171,18 @@ public class ProblemSolutions {
     public static boolean asteroidsDestroyed(int mass, int[] asteroids) {
 
         // YOUR CODE GOES HERE, CONSIDER USING ARRAYS.SORT()
+        selectionSort(asteroids, true);
+        for (int i = 0; i < asteroids.length; i++){
+            if (mass < asteroids[i]){
+                return false;
+            }
+            else{
+                mass = mass + asteroids[i];
+            }
 
-        return false;
+
+        }
+        return true;
 
     }
 
@@ -193,9 +219,20 @@ public class ProblemSolutions {
     public static int numRescueSleds(int[] people, int limit) {
 
         // YOUR CODE GOES HERE, CONSIDER USING ARRAYS.SORT
+        int total = 0;
+        int left = 0;
+        int right = people.length - 1;
 
-        return -1;
+        Arrays.sort(people);
+        while (left <= right) {
+            if (people[left] + people[right] <= limit) {
+                left++;
+            }
+            right--;
+            total++;
+        }
 
+        return total;
     }
 
 } // End Class ProblemSolutions
