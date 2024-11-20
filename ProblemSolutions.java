@@ -117,8 +117,52 @@ public class ProblemSolutions {
         // ALLOCATES AUXILIARY DATA STRUCTURES (TEMPORARY ARRAYS). IT WILL BE EASIER
         // TO CODE WITH A SPACE COMPLEXITY OF O(N LOG N), WHICH IS FINE FOR PURPOSES
         // OF THIS PROGRAMMING EXERCISES.
+        int leftSize = mid - left + 1;
+        int rightSize = right - mid;
 
-        return;
+        int[] leftGroup = new int[leftSize];
+        int[] rightGroup = new int[rightSize];
+
+        for(int i = 0; i < leftSize; i++) {
+            leftGroup[i] = arr[i + left];
+        }
+
+        for(int j = 0; j < rightSize; j++) {
+            rightGroup[j] = arr[mid + 1 + j];
+        }
+
+        int i = 0;
+        int j = 0;
+        int currIndex = left;
+
+        while(i < leftSize && j < rightSize) {
+            boolean leftDiv = leftGroup[i] % k == 0;
+            boolean rightDiv = rightGroup[j] % k == 0;
+
+            if(leftDiv) {
+                arr[currIndex++] = leftGroup[i++];
+            } else if(rightDiv) {
+                arr[currIndex++] = rightGroup[j++];
+            } else {
+                if(leftGroup[i] <= rightGroup[j]) {
+                    arr[currIndex++] = leftGroup[i++];
+                } else {
+                    arr[currIndex++] = rightGroup[j++];
+                }
+            }
+
+        }
+
+        while(i < leftSize) {
+            arr[currIndex++] = leftGroup[i++];
+        }
+
+        while(j < rightSize) {
+            arr[currIndex++] = rightGroup[j++];
+        }
+
+
+
 
     }
 
